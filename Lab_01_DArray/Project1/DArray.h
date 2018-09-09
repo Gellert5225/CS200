@@ -30,12 +30,11 @@ public:
 	// Declaration function append
 	void append(const DArray &arr);
 
-
 	// Declaration move constructor
-
+	DArray(DArray &&arr);
 
 	// Declaration move assignment operator
-
+	DArray& operator=(DArray &&arr);
 
 private:
     int *a;					//will point to an array of integers
