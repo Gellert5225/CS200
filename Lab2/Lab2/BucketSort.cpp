@@ -1,0 +1,34 @@
+/*
+	Li, Gellert
+
+*/
+
+#include "BucketSort.h"
+#include <iostream>
+
+
+void BucketSort::insert(const std::vector<double> &v) {
+	for (int i = 0; i < v.size(); i++) {
+		int index = int(v[i] * 10);
+		bucket[index]->insert(v[i]);
+	}
+}
+
+BucketSort::BucketSort() {
+	numberOfElements = 10;
+	bucket = new Bucket*[numberOfElements];
+	for (int i = 0; i < 10; i++) {
+		bucket[i] = new Bucket();
+	}
+
+}
+
+BucketSort::~BucketSort() {
+}
+
+void BucketSort::print() {
+	for (int i = 0; i < numberOfElements; i++) {
+		bucket[i]->print();
+		std::cout << std::endl;
+	}
+}
