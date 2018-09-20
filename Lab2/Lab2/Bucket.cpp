@@ -1,3 +1,12 @@
+/*
+	Li, Gellert
+
+	CS A200
+
+	19th September, 2018
+	Lab 02
+*/
+
 #include "Bucket.h"
 
 #include <iostream>
@@ -34,7 +43,15 @@ Bucket::Bucket() {
 }
 
 Bucket::~Bucket() {
+	Node *temp = first;
 
+	while (first != nullptr) {
+		first = first->getLink();
+		delete temp;
+		temp = first;
+	}
+
+	numberOfElement = 0;
 }
 
 void Bucket::print() {

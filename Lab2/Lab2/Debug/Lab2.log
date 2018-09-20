@@ -1,2 +1,6 @@
 ﻿  Bucket.cpp
-  Lab2.vcxproj -> C:\CS 200\Lab2\Debug\Lab2.exe
+  BucketSort.cpp
+c:\occ\cs200\lab2\lab2\bucketsort.cpp(15): warning C4018: '<': signed/unsigned mismatch
+  Main.cpp
+  Generating Code...
+  Lab2.vcxproj -> C:\OCC\CS200\Lab2\Debug\Lab2.exe

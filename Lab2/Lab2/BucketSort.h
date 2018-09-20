@@ -1,3 +1,12 @@
+/*
+	Li, Gellert
+
+	CS A200
+
+	19th September, 2018
+	Lab 02
+*/
+
 #ifndef BUCKETSORT_H
 #define BUCKETSORT_H
 

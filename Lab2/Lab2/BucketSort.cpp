@@ -1,6 +1,10 @@
 /*
 	Li, Gellert
 
+	CS A200
+
+	19th September, 2018
+	Lab 02
 */
 
 #include "BucketSort.h"
@@ -24,6 +28,10 @@ BucketSort::BucketSort() {
 }
 
 BucketSort::~BucketSort() {
+	for (int i = 0; i < numberOfElements; i++) {
+		delete bucket[i];
+	}
+	delete[] bucket;
 }
 
 void BucketSort::print() {
