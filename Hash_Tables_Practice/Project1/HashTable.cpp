@@ -21,9 +21,12 @@ HashTable::HashTable(const HashTable &table) {
 
 	memcpy(&ht, &table, table.cap * sizeof(int));
 
+	// OR
+	/*
 	for (int i = 0; i < table.cap; i++) {
 		ht[i] = table.ht[i];
 	}
+	*/
 }
 
 HashTable & HashTable::operator=(const HashTable & table) {
@@ -36,10 +39,42 @@ HashTable & HashTable::operator=(const HashTable & table) {
 		for (int i = 0; i < table.numOfItems; i++) {
 			ht[i] = table.ht[i];
 		}
-	}
-	else {
+	} else {
 		cerr << "Attempted assignment to itself." << endl;
 	}
 
 	return *this;
+}
+
+bool HashTable::isEmpty() const {
+	return numOfItems == 0;
+}
+
+int HashTable::hashValue(const int key, const int c) { 
+	// for simplicity, we assume h(k) = key mod n   for linear probing, and
+	// f(k) = key   for quadratic
+
+	int hash = key % cap; // replace this with proper function.
+	int j = 0;
+
+	if (COLLISION == 0) {
+		while (ht[hash] != -1) {
+			hash++;
+		}
+	} else if (COLLISION == 1) {
+		while (ht[(key + j * c) % cap] != -1) {
+			j++;
+			hash = (key + j * c) % cap;
+		}
+	} else if (COLLISION == 2) {
+		while (ht[(key + j * j) % cap] != -1) {
+			// TODO: checking repeating and rehash.
+			j++;
+			hash = (key + j * j) % cap;
+		}
+	} else if (COLLISION == 3) {
+
+	}
+
+	return hash;
 }

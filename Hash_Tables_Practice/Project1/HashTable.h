@@ -5,6 +5,16 @@
 using namespace std;
 
 const int CAP = 23;	// For testing, you can change it to another prime number.
+ 
+/* define some collision methods: 
+	 0 for linear probing without c/j
+	 1 for linear probing with c/j
+	 2 for quadratic probing
+	 3 for double hashing
+
+	Change the number to test different open addressing.
+*/
+constexpr unsigned int COLLISION = 0;
 
 class HashTable
 {
@@ -23,7 +33,7 @@ public:
 			insertKey 
 				- Calls the hashValue function to get the index.
 			searchKey
-				- Calls the hashValue function to get the index.			
+				- Calls the hashValue function to get the index.
 				- Returns a Boolean value
 			any overloaded operator that could be useful
 			deleteKey 
@@ -43,6 +53,10 @@ public:
 
 	HashTable& operator=(const HashTable &table);
 
+	bool isEmpty() const;
+
+	void insertKey();
+
 private:
 	/* 
 		Private member functions you should implement:
@@ -52,6 +66,8 @@ private:
 			searchKey
 				Overloaded function that returns an index
 	*/
+
+	int hashValue(const int key, const int c);
 
 	int *ht;			//pointer to the hash table
 	int numOfItems;		//number of items in the hash table
