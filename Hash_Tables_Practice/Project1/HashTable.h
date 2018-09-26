@@ -1,0 +1,61 @@
+#ifndef HASHTABLE_H
+#define HASHTABLE_H	
+
+#include <iostream>
+using namespace std;
+
+const int CAP = 23;	// For testing, you can change it to another prime number.
+
+class HashTable
+{
+public:
+
+	/*
+		Public member functions you should implement:
+			Default constructor
+				- Set all the indices of the table to -1.
+			overloaded constructor
+			the Big 5
+			accessor functions
+			mutator functions
+			isEmpty
+				- Returns a Boolean
+			insertKey 
+				- Calls the hashValue function to get the index.
+			searchKey
+				- Calls the hashValue function to get the index.			
+				- Returns a Boolean value
+			any overloaded operator that could be useful
+			deleteKey 
+				- Calls the hashValue function to get the index.
+				- Mark deleted indices with -2.
+			rehash
+				- Re-create the table with double the capacity to the next prime number.
+			destructor
+			resetTable
+				- Will re-set to an empty table
+	*/
+	HashTable();
+
+	~HashTable();
+
+	HashTable(const HashTable &table);
+
+	HashTable& operator=(const HashTable &table);
+
+private:
+	/* 
+		Private member functions you should implement:
+			hashValue
+				Parameters: the key and the j value
+				Return value: an int storing an index
+			searchKey
+				Overloaded function that returns an index
+	*/
+
+	int *ht;			//pointer to the hash table
+	int numOfItems;		//number of items in the hash table
+	int cap;			//maximum length of the hash table	
+};
+
+#endif

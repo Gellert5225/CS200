@@ -17,8 +17,7 @@ void Bucket::insert(const double element) {
 		last = first;
 	} else {
 		if (element < first->getItem()) { // new element is smaller than first
-			Node *n = new Node(element, first);
-			first = n;
+			first = new Node(element, first);
 		} else { // new element is larger than first
 			Node *current = first->getLink();
 			Node *previous = first;
