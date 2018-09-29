@@ -5,6 +5,8 @@
 
 HashTable::HashTable() {
 	ht = new int[CAP];
+	numOfItems = 0;
+	cap = CAP;
 
 	for (int i = 0; i < CAP; i++) {
 		ht[i] = -1;
@@ -18,6 +20,7 @@ HashTable::~HashTable() {
 HashTable::HashTable(const HashTable &table) {
 	ht = new int[table.cap];
 	numOfItems = table.numOfItems;
+	cap = table.cap;
 
 	memcpy(&ht, &table, table.cap * sizeof(int));
 
@@ -29,6 +32,22 @@ HashTable::HashTable(const HashTable &table) {
 	*/
 }
 
+int HashTable::getNumberOfItems() {
+	return numOfItems;
+}
+
+int HashTable::getCapacity() {
+	return cap;
+}
+
+void HashTable::setNumberOfItems(const int num) {
+	numOfItems = num;
+}
+
+void HashTable::setCapacity(const int cap) {
+	this->cap = cap;
+}
+
 HashTable & HashTable::operator=(const HashTable & table) {
 	if (&table != this) {
 		if (cap != table.cap) {
@@ -36,6 +55,7 @@ HashTable & HashTable::operator=(const HashTable & table) {
 			ht = new int[table.cap];
 			cap = table.cap;
 		}
+		numOfItems = table.numOfItems;
 		for (int i = 0; i < table.numOfItems; i++) {
 			ht[i] = table.ht[i];
 		}
@@ -50,31 +70,45 @@ bool HashTable::isEmpty() const {
 	return numOfItems == 0;
 }
 
-int HashTable::hashValue(const int key, const int c) { 
+void HashTable::insertKey(const int key) {
+	int j = 0;
+	int hash = hashValue(key, j);
+	while (ht[hash] != -1) {
+		j++;
+		hash = hashValue(key, j);
+	}
+
+	ht[hash] = key;
+}
+
+bool HashTable::searchKey(const int key) {
+	int j = 0;
+	int hash = hashValue(key, j);
+	while (ht[hash] != -1) {
+		if (ht[hash] == key) return true;
+		j++;
+	}
+	return false;
+}
+
+int HashTable::hashValue(const int key, int j) { 
 	// for simplicity, we assume h(k) = key mod n   for linear probing, and
 	// f(k) = key   for quadratic
 
-	int hash = key % cap; // replace this with proper function.
-	int j = 0;
+	int hash = 0; // replace this with proper function.
 
 	if (COLLISION == 0) {
-		while (ht[hash] != -1) {
-			hash++;
-		}
+		hash = key % cap + j;
 	} else if (COLLISION == 1) {
-		while (ht[(key + j * c) % cap] != -1) {
-			j++;
-			hash = (key + j * c) % cap;
-		}
+		hash = (key + j * 3) % cap;
 	} else if (COLLISION == 2) {
-		while (ht[(key + j * j) % cap] != -1) {
-			// TODO: checking repeating and rehash.
-			j++;
-			hash = (key + j * j) % cap;
-		}
+		hash = (key + j * j) % cap;
 	} else if (COLLISION == 3) {
-
+		// Assume h'(k) = 7 - (k mod 7)
+		hash = key % 13 + j * (7 - key % 7);
 	}
+
+	cout << "Hash Value for key " << key << ": " << hash << endl;
 
 	return hash;
 }

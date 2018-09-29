@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-const int CAP = 23;	// For testing, you can change it to another prime number.
+const int CAP = 701;	// For testing, you can change it to another prime number.
  
 /* define some collision methods: 
 	 0 for linear probing without c/j
@@ -51,11 +51,21 @@ public:
 
 	HashTable(const HashTable &table);
 
+	int getNumberOfItems();
+
+	int getCapacity();
+
+	void setNumberOfItems(const int num);
+
+	void setCapacity(const int cap);
+
 	HashTable& operator=(const HashTable &table);
 
 	bool isEmpty() const;
 
-	void insertKey();
+	void insertKey(const int key);
+
+	bool searchKey(const int key);
 
 private:
 	/* 
@@ -67,7 +77,7 @@ private:
 				Overloaded function that returns an index
 	*/
 
-	int hashValue(const int key, const int c);
+	int hashValue(const int key, int j);
 
 	int *ht;			//pointer to the hash table
 	int numOfItems;		//number of items in the hash table
