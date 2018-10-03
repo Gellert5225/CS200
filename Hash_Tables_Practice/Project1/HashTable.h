@@ -87,7 +87,7 @@ private:
 
 	int hashValue(const int key, int j) const;
 
-	int searchKey(const float key);
+	int searchKey(const float key) const;
 
 	int *ht;			//pointer to the hash table
 	int numOfItems;		//number of items in the hash table

@@ -101,6 +101,7 @@ bool HashTable::searchKey(const int key) const {
 	int j = 0;
 	int hash = hashValue(key, j);
 	while (ht[hash] != -1) {
+		hash = hashValue(key, j);
 		if (ht[hash] == key) return true;
 		j++;
 	}
@@ -137,6 +138,20 @@ void HashTable::rehash() {
 }
 
 void HashTable::deleteKey(const int key) {
+	bool found = false;
+	int j = 0;
+	int hash = hashValue(key, j);
+	while (ht[hash] != -1) {
+		hash = hashValue(key, j);
+		if (ht[hash] == key) {
+			ht[hash] = -2;
+			found = true; 
+			break;
+		}
+		j++;
+	}
+
+	if (!found) cerr << "Cannot find key " << key << endl;
 }
 
 int HashTable::hashValue(const int key, int j) const { 
@@ -161,7 +176,7 @@ int HashTable::hashValue(const int key, int j) const {
 	return hash;
 }
 
-int HashTable::searchKey(const float key) {
+int HashTable::searchKey(const float key) const {
 	return 0;
 }
 
