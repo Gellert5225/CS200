@@ -53,9 +53,11 @@ public:
 
 	HashTable(const int newCap);
 
-	int getNumberOfItems();
+	HashTable(HashTable &&table);
 
-	int getCapacity();
+	int getNumberOfItems() const;
+
+	int getCapacity() const;
 
 	void setNumberOfItems(const int num);
 
@@ -72,6 +74,10 @@ public:
 	void rehash();
 
 	void deleteKey(const int key);
+
+	void resetTable();
+
+	HashTable& operator=(HashTable &&table);
 
 	friend ostream& operator<< (std::ostream& stream, const HashTable& HT);
 

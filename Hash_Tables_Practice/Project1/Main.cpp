@@ -31,6 +31,16 @@ int main()
 
 	cout << endl << "Hash Table: " << HT << endl;
 
+	HT.insertKey(155778322);
+
+	cout << endl << "Hash Table: " << HT << endl;
+
+	cout << "Reset Table" << endl << endl;
+
+	HT.resetTable();
+
+	cout << "Hash Table: " << HT << endl;
+
 	cout << endl;
 	system("Pause");
 	return 0;

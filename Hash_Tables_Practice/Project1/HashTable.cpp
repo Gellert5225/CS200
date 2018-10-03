@@ -15,6 +15,7 @@ HashTable::HashTable() {
 
 HashTable::~HashTable() {
 	delete [] ht;
+	ht = nullptr;
 }
 
 HashTable::HashTable(const HashTable &table) {
@@ -42,11 +43,19 @@ HashTable::HashTable(const int newCap) {
 	}
 }
 
-int HashTable::getNumberOfItems() {
+HashTable::HashTable(HashTable &&table) {
+	cap = table.cap;
+	numOfItems = table.numOfItems;
+	ht = table.ht;
+
+	table.ht = nullptr;
+}
+
+int HashTable::getNumberOfItems() const {
 	return numOfItems;
 }
 
-int HashTable::getCapacity() {
+int HashTable::getCapacity() const {
 	return cap;
 }
 
@@ -88,7 +97,7 @@ void HashTable::insertKey(const int key) {
 
 	int j = 0;
 	int hash = hashValue(key, j);
-	while (ht[hash] != -1) {
+	while (ht[hash] != -1 && ht[hash] != -2) {
 		j++;
 		hash = hashValue(key, j);
 	}
@@ -101,9 +110,9 @@ bool HashTable::searchKey(const int key) const {
 	int j = 0;
 	int hash = hashValue(key, j);
 	while (ht[hash] != -1) {
-		hash = hashValue(key, j);
 		if (ht[hash] == key) return true;
 		j++;
+		hash = hashValue(key, j);
 	}
 	return false;
 }
@@ -142,16 +151,37 @@ void HashTable::deleteKey(const int key) {
 	int j = 0;
 	int hash = hashValue(key, j);
 	while (ht[hash] != -1) {
-		hash = hashValue(key, j);
 		if (ht[hash] == key) {
 			ht[hash] = -2;
 			found = true; 
 			break;
 		}
 		j++;
+		hash = hashValue(key, j);
 	}
 
 	if (!found) cerr << "Cannot find key " << key << endl;
+}
+
+void HashTable::resetTable() {
+	numOfItems = 0;
+	for (int i = 0; i < cap; i++) {
+		ht[i] = -1;
+	}
+}
+
+HashTable & HashTable::operator=(HashTable && table) {
+	if (this == &table) {
+		cerr << "Cannot copy from the same object" << endl;
+	} else {
+		delete[] ht;
+		cap = table.cap;
+		numOfItems = table.numOfItems;
+
+		table.ht = nullptr;
+
+		return *this;
+	}
 }
 
 int HashTable::hashValue(const int key, int j) const { 
