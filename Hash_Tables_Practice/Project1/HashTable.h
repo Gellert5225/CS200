@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-const int CAP = 701;	// For testing, you can change it to another prime number.
+const int CAP = 13;	// For testing, you can change it to another prime number.
  
 /* define some collision methods: 
 	 0 for linear probing without c/j
@@ -14,7 +14,7 @@ const int CAP = 701;	// For testing, you can change it to another prime number.
 
 	Change the number to test different open addressing.
 */
-constexpr unsigned int COLLISION = 0;
+constexpr unsigned int COLLISION = 2;
 
 class HashTable
 {
@@ -51,6 +51,8 @@ public:
 
 	HashTable(const HashTable &table);
 
+	HashTable(const int newCap);
+
 	int getNumberOfItems();
 
 	int getCapacity();
@@ -65,7 +67,13 @@ public:
 
 	void insertKey(const int key);
 
-	bool searchKey(const int key);
+	bool searchKey(const int key) const;
+
+	void rehash();
+
+	void deleteKey(const int key);
+
+	friend ostream& operator<< (std::ostream& stream, const HashTable& HT);
 
 private:
 	/* 
@@ -77,7 +85,9 @@ private:
 				Overloaded function that returns an index
 	*/
 
-	int hashValue(const int key, int j);
+	int hashValue(const int key, int j) const;
+
+	int searchKey(const float key);
 
 	int *ht;			//pointer to the hash table
 	int numOfItems;		//number of items in the hash table

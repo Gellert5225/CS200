@@ -32,6 +32,16 @@ HashTable::HashTable(const HashTable &table) {
 	*/
 }
 
+HashTable::HashTable(const int newCap) {
+	ht = new int[newCap];
+	numOfItems = 0;
+	cap = newCap;
+
+	for (int i = 0; i < newCap; i++) {
+		ht[i] = -1;
+	}
+}
+
 int HashTable::getNumberOfItems() {
 	return numOfItems;
 }
@@ -56,7 +66,7 @@ HashTable & HashTable::operator=(const HashTable & table) {
 			cap = table.cap;
 		}
 		numOfItems = table.numOfItems;
-		for (int i = 0; i < table.numOfItems; i++) {
+		for (int i = 0; i < table.cap; i++) {
 			ht[i] = table.ht[i];
 		}
 	} else {
@@ -71,6 +81,11 @@ bool HashTable::isEmpty() const {
 }
 
 void HashTable::insertKey(const int key) {
+	if (numOfItems == cap / 2) {
+		cout << key << " hits the load factor, start rehashing" << endl;
+		rehash();
+	}
+
 	int j = 0;
 	int hash = hashValue(key, j);
 	while (ht[hash] != -1) {
@@ -78,10 +93,11 @@ void HashTable::insertKey(const int key) {
 		hash = hashValue(key, j);
 	}
 
+	numOfItems++;
 	ht[hash] = key;
 }
 
-bool HashTable::searchKey(const int key) {
+bool HashTable::searchKey(const int key) const {
 	int j = 0;
 	int hash = hashValue(key, j);
 	while (ht[hash] != -1) {
@@ -91,7 +107,39 @@ bool HashTable::searchKey(const int key) {
 	return false;
 }
 
-int HashTable::hashValue(const int key, int j) { 
+bool isPrime(const int a) {
+	for (int i = 2; i <= a / 2; ++i) {
+		if (a % i == 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
+void HashTable::rehash() {
+	cout << "Hash Table before rehashing: " << *this << endl;
+	int prime = 2 * CAP + 1;
+	while (!isPrime(prime)) {
+		prime++;
+	}
+
+	HashTable newTable = HashTable(prime);
+
+	for (int i = 0; i < cap; i++) {
+		if (ht[i] != -1) {
+			newTable.insertKey(ht[i]);
+		}
+	}
+
+	*this = newTable;
+
+	cout << "Hash Table after rehashing: " << *this << endl;
+}
+
+void HashTable::deleteKey(const int key) {
+}
+
+int HashTable::hashValue(const int key, int j) const { 
 	// for simplicity, we assume h(k) = key mod n   for linear probing, and
 	// f(k) = key   for quadratic
 
@@ -106,9 +154,21 @@ int HashTable::hashValue(const int key, int j) {
 	} else if (COLLISION == 3) {
 		// Assume h'(k) = 7 - (k mod 7)
 		hash = key % 13 + j * (7 - key % 7);
-	}
+	} 
 
 	cout << "Hash Value for key " << key << ": " << hash << endl;
 
 	return hash;
+}
+
+int HashTable::searchKey(const float key) {
+	return 0;
+}
+
+ostream& operator<< (std::ostream& stream, const HashTable& HT) {
+	for (int i = 0; i < HT.cap; i++) {
+		stream << HT.ht[i] << " ";
+	}
+
+	return stream;
 }
