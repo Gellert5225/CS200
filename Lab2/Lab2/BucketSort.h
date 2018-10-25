@@ -19,6 +19,7 @@ public:
 	BucketSort();
 	~BucketSort();
 	void print();
+	void createSortedList(Bucket &bucket) const;
 
 public:
 	int numberOfElements;

@@ -79,7 +79,7 @@ public:
 
 	HashTable& operator=(HashTable &&table);
 
-	friend ostream& operator<< (std::ostream& stream, const HashTable& HT);
+	friend ostream& operator<<(std::ostream& stream, const HashTable& HT);
 
 private:
 	/* 

@@ -23,7 +23,7 @@ BucketSort::BucketSort() {
 	bucket = new Bucket*[numberOfElements];
 	for (int i = 0; i < 10; i++) {
 		bucket[i] = new Bucket();
-	}
+	};
 
 }
 
@@ -38,5 +38,11 @@ void BucketSort::print() {
 	for (int i = 0; i < numberOfElements; i++) {
 		bucket[i]->print();
 		std::cout << std::endl;
+	}
+}
+
+void BucketSort::createSortedList(Bucket & bucket) const {
+	for (int i = 0; i < numberOfElements; i++) {
+		bucket.moveAppend(std::move(*this->bucket[i]));
 	}
 }

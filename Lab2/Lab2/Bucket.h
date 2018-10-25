@@ -31,6 +31,9 @@ public:
 	Bucket();
 	~Bucket();
 	void print();
+	bool isEmpty() const;
+	Bucket& operator=(Bucket &&bucket);
+	void moveAppend(Bucket &&bucket);
 
 private:
 	Node* first;

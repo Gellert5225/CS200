@@ -7,9 +7,10 @@
 	Lab 02
 */
 
-#include "BucketSort.h"
+#include "SortedList.h"
 
 #include <iostream>
+#include <vector>
 #include <iomanip>
 using namespace std;
 
@@ -20,11 +21,11 @@ int main()
 		0.73, 0.56, 0.32, 0.87, 0.11, 
 		0.67, 0.34, 0.43, 0.61, 0.03 };
 
-	BucketSort myBucket;
-	myBucket.insert(v);
+	SortedList sortedList;
+	sortedList.sortList(v);
 
 	cout << fixed << showpoint << setprecision(2);
-	myBucket.print();
+	sortedList.print();
 	cout << endl;
 
 	cout << endl;

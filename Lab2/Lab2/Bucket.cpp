@@ -60,3 +60,50 @@ void Bucket::print() {
 		current = current->getLink();
 	}
 }
+
+bool Bucket::isEmpty() const {
+	return numberOfElement == 0;
+}
+
+Bucket & Bucket::operator=(Bucket && bucket) {
+	if (&bucket == this) {
+		std::cerr << "Cannot assign to it self" << std::endl;
+	} else {
+		Node *current = first;
+		while (first != nullptr) {
+			first = first->getLink();
+			delete current;
+			current = first;
+		}
+		last = nullptr;
+
+		first = bucket.first;
+		last = bucket.last;
+		numberOfElement = bucket.numberOfElement;
+
+		bucket.first = nullptr;
+		bucket.last = nullptr;
+		bucket.numberOfElement = 0;
+	}
+	return *this;
+}
+
+void Bucket::moveAppend(Bucket && bucket) {
+	if (&bucket == this) {
+		std::cerr << "Cannot append same object" << std::endl;
+	} else {
+		if (isEmpty()) {
+			first = bucket.first;
+			last = bucket.last;
+		}
+		if (!bucket.isEmpty()) {
+			last->setLink(bucket.first);
+			last = bucket.last;
+			numberOfElement += bucket.numberOfElement;
+
+			bucket.first = nullptr;
+			bucket.last = nullptr;
+			bucket.numberOfElement = 0;
+		}
+	}
+}
