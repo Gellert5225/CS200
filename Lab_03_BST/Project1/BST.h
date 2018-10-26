@@ -1,3 +1,11 @@
+/*
+	Li, Gellert
+	CS A200
+
+	26th Oct 2018
+	Lab 03
+*/
+
 #ifndef BST_H
 #define BST_H
 

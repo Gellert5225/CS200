@@ -1,5 +1,9 @@
 /*
-	(name header)
+	Li, Gellert
+	CS A200
+
+	26th Oct 2018
+	Lab 03
 */
 
 #include "BST.h"
