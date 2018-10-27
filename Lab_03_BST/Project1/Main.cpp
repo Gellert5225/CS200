@@ -62,7 +62,7 @@ void processTree(BST& bst, char fileName[])
 		
 		while (data != -999)
         {
-			 bst.insert(data); 	
+			 bst.insert(data);
 			 infile >> data;	
         }
 
@@ -76,10 +76,10 @@ void testTree(const BST& bst)
 {
 	//TEST: inorderTraversal
 	cout << "Inorder traversal: ";
-	bst.inorderTraversal();
+	bst.postorderTraversal();
 
 	//other testcases
 
 	//TEST: totalNodes
-	/*cout << "\nTotal nodes: " << bst.totalNodes();*/
+	cout << "\nTotal nodes: " << bst.totalNodes();
 }

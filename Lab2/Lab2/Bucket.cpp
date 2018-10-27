@@ -1,5 +1,6 @@
 /*
 	Li, Gellert
+	Tang, Paul
 
 	CS A200
 
@@ -29,6 +30,8 @@ void Bucket::insert(const double element) {
 
 			Node *n = new Node(element, current);
 			previous->setLink(n);
+			if (current == nullptr)
+				last = n;
 		}
 	}
 
