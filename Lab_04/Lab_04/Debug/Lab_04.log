@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\occ\cs200\lab_04\lab_04\main.cpp(77): warning C4018: '>': signed/unsigned mismatch
+c:\occ\cs200\lab_04\lab_04\main.cpp(78): warning C4018: '>': signed/unsigned mismatch
+  Lab_04.vcxproj -> C:\OCC\CS200\Lab_04\Debug\Lab_04.exe

@@ -1,5 +1,6 @@
 /*
 	Li, Gellert
+	Tang, Paul
 	CS A200
 
 	26th Oct 2018
@@ -15,21 +16,22 @@ void BST::insertNonRec(int item) {
 	newNode->data = item;
 	if (root == nullptr) {
 		root = newNode;
-	}
-	Node *p = root;
-	while (p->llink != nullptr || p->rlink != nullptr) {
-		if (item < p->data) {
-			if (p->llink == nullptr) break;
-			else p = p->llink;
+	} else {
+		Node *current = root;
+		Node *prev = nullptr;
+
+		while (current != nullptr) {
+			prev = current;
+			if (current->data < item) current = current->rlink;
+			else if (current->data > item) current = current->llink;
+			else {
+				std::cerr << "The item to insert is already in the list - duplicates are not allowed" << std::endl;
+				break;
+			}
 		}
-		else if (item > p->data) {
-			if (p->rlink == nullptr) break;
-			else p = p->rlink;
-		}
-		else std::cerr << "The item to insert is already in the list - duplicates are not allowed" << std::endl;
+		if (item < prev->data) prev->llink = newNode;
+		else if (item > prev->data) prev->rlink = newNode;
 	}
-	if (item < p->data) p->llink = newNode;
-	else if (item > p->data) p->rlink = newNode;
 }
 
 // Definition function totalNodes
