@@ -5,7 +5,7 @@
 #include "BST.h"
 
 /*--------Change the macro to switch between recursive and non-rec functino calls--------*/
-#define RECURSIVE 1
+#define RECURSIVE 0
 
 // Private
 bool BST::search(Node* node, const int element) const {
@@ -25,9 +25,11 @@ void BST::deleteNode(Node*& node, const int element) {
 		if (node->llink == nullptr) {
 			node = node->rlink;
 			delete temp;
+			temp = nullptr;
 		} else if (node->rlink == nullptr) {
 			node = node->llink;
 			delete temp; 
+			temp = nullptr;
 		} else {
 			int predecessorData;
 			getPredecessor(node->llink, predecessorData);
@@ -61,5 +63,24 @@ void BST::deleteNode(const int element) {
 #if RECURSIVE
 	deleteNode(root, element);
 #else
+	Node* current = root;
+	while (current != nullptr) {
+		if (current->data == element) {
+			Node* temp = current;
+			if (current->rlink == nullptr) {
+				current = current->llink;
+				delete temp;
+				temp = nullptr;
+			} else if (current->llink == nullptr) {
+				current = current->rlink;
+				delete temp;
+				temp = nullptr;
+			} else {
+
+			}
+		}
+		else if (element < current->data) current = current->llink;
+		else current = current->rlink;
+	}
 #endif
 }
