@@ -5,7 +5,7 @@
 #include "BST.h"
 
 /*--------Change the macro to switch between recursive and non-rec functino calls--------*/
-#define RECURSIVE 0
+#define RECURSIVE 1
 
 // Private
 bool BST::search(Node* node, const int element) const {
@@ -42,6 +42,16 @@ void BST::deleteNode(Node*& node, const int element) {
 void BST::getPredecessor(Node* node, int& data) const {
 	while (node->rlink != nullptr) node = node->rlink;
 	data = node->data;
+}
+
+void BST::copy(Node*& node, const Node* otherNode) {
+	if (otherNode == nullptr) node = nullptr;
+	else {
+		node = new Node();
+		node->data = otherNode->data;
+		copy(node->llink, otherNode->llink);
+		copy(node->rlink, otherNode->rlink);
+	}
 }
 
 // Public
@@ -83,4 +93,13 @@ void BST::deleteNode(const int element) {
 		else current = current->rlink;
 	}
 #endif
+}
+
+BST& BST::operator=(const BST& tree) {
+	if (&tree == this) std::cerr << "Cannot assign the object to itself" << std::endl;
+	else {
+		if (tree.root == nullptr) destroyTree();
+		else copy(root, tree.root);
+	}
+	return *this;
 }

@@ -1,8 +1,8 @@
 /*
- Li, Gellert
- CS A200
+	 Li, Gellert
+	 CS A200
 
- 7th Nov 2018
+	 7th Nov 2018
  */
 
 #include <iostream>
@@ -14,10 +14,10 @@ using namespace std;
 void processStacks(int* a, size_t& size, const int cap, int& topSmall, int& topLarge);
 
 // Declaration of function printSmallValues
-void printSmallValues(const int* a, const int topSmall);
+void printSmallValues(const int* a, int& topSmall);
 
 // Declaration of function printLargeValues
-void printLargeValues(const int* a, const int cap, const int topLarge);
+void printLargeValues(const int* a, const int cap, int& topLarge);
 
 int main() {
 	int cap = 0;
@@ -79,15 +79,25 @@ void processStacks(int* a, size_t& size, const int cap, int& topSmall, int& topL
 }
 
 // Definition of function printSmallValues
-void printSmallValues(const int* a, const int topSmall) {
+void printSmallValues(const int* a, int& topSmall) {
 	cout << "Stack with small values (top): ";
 	if (topSmall == -1) cout << "There are no small numbers";
-	else for (int i = topSmall; i >= 0; i--) cout << a[i] << " ";
+	else {
+		while (topSmall != -1) {
+			cout << a[topSmall] << " ";
+			topSmall--;
+		}
+	}
 }
 
 // Definition of function printLargeValues
-void printLargeValues(const int* a, const int cap, const int topLarge) {
+void printLargeValues(const int* a, const int cap, int& topLarge) {
 	cout << "Stack with large values (top): ";
 	if (topLarge == cap) cout << "There are no large numbers";
-	else for (int i = topLarge; i < cap; i++) cout << a[i] << " ";
+	else {
+		while (topLarge != cap) {
+			cout << a[topLarge] << " ";
+			topLarge++;
+		}
+	}
 }

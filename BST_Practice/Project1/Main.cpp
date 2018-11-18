@@ -57,6 +57,11 @@ int main()
 	int1BST.destroyTree();
 	testTree(int1BST);
 
+	cout << "\n\n---------------------------------------------------\n";
+	cout << "TESTING: Copying tree2 to tree1...\n\n";
+	int1BST = int2BST;
+	testTree(int1BST);
+
 	cout << endl << endl;
 	system("Pause");
 	return 0;

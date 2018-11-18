@@ -59,6 +59,8 @@ public:
 
 	void deleteNode(const int element);
 
+	BST& operator=(const BST& tree);
+
 private:	
 	Node *root; //Pointer to the root
 
@@ -83,6 +85,8 @@ private:
 	void deleteNode(Node*& node, const int element);
 
 	void getPredecessor(Node* node, int& data) const;
+
+	void copy(Node*& node, const Node* otherNode);
 };
 
 #endif
