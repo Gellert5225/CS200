@@ -3,6 +3,7 @@
 */
 
 #include "BST.h"
+#include <algorithm>
 
 /*--------Change the macro to switch between recursive and non-rec functino calls--------*/
 #define RECURSIVE 1
@@ -54,7 +55,18 @@ void BST::copy(Node*& node, const Node* otherNode) {
 	}
 }
 
+int BST::getHeight(Node* node) const {
+	if (node == nullptr) return 0;
+	if (node->llink == nullptr && node->rlink == nullptr) return 0;
+	else return 1 + std::max(getHeight(node->llink), getHeight(node->rlink));
+}
+
 // Public
+BST::BST(BST&& other) {
+	root = other.root;
+	other.root = nullptr;
+}
+
 bool BST::search(const int element) const {
 #if RECURSIVE
 	return search(root, element);
@@ -95,11 +107,25 @@ void BST::deleteNode(const int element) {
 #endif
 }
 
+int BST::getHeight() const {
+	return getHeight(root);
+}
+
 BST& BST::operator=(const BST& tree) {
 	if (&tree == this) std::cerr << "Cannot assign the object to itself" << std::endl;
 	else {
 		if (tree.root == nullptr) destroyTree();
 		else copy(root, tree.root);
+	}
+	return *this;
+}
+
+BST& BST::operator=(BST&& other) {
+	if (&other == this) std::cerr << "Cannot assign the object to itself" << std::endl;
+	else {
+		destroyTree();
+		root = other.root;
+		other.root = nullptr;
 	}
 	return *this;
 }

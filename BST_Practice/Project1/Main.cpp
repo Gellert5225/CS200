@@ -47,10 +47,18 @@ int main()
 	cout << "Searching for 17..." << (int1BST.search(17) ? "Found" : "Not Found");
 
 	cout << "\n\n---------------------------------------------------\n";
+	cout << "TESTING: Get height of tree...\n\n";
+	cout << int1BST.getHeight();
+
+	cout << "\n\n---------------------------------------------------\n";
 	cout << "TESTING: Deleting...\n\n";
 	cout << "Deleting 13..." << endl;
 	int1BST.deleteNode(13);
 	testTree(int1BST);
+
+	cout << "\n\n---------------------------------------------------\n";
+	cout << "TESTING: Get height of tree after delete...\n\n";
+	cout << int1BST.getHeight();
 
 	cout << "\n\n---------------------------------------------------\n";
 	cout << "TESTING: Deleting tree...\n\n";

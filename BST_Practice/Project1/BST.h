@@ -55,11 +55,17 @@ public:
 	void postorderTraversal() const;
 
 	/*----------Sample Functions for PE02----------*/
+	BST(BST&& other);
+
 	bool search(const int element) const;
 
 	void deleteNode(const int element);
 
 	BST& operator=(const BST& tree);
+
+	BST& operator=(BST&& other);
+
+	int getHeight() const;
 
 private:	
 	Node *root; //Pointer to the root
@@ -87,6 +93,8 @@ private:
 	void getPredecessor(Node* node, int& data) const;
 
 	void copy(Node*& node, const Node* otherNode);
+
+	int getHeight(Node* node) const;
 };
 
 #endif

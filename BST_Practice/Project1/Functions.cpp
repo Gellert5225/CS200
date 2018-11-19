@@ -64,7 +64,6 @@ void BST::preorderTraversal(const Node* node) const {
 		preorderTraversal(node->rlink);
 	}
 }
-
 // Definition overloaded function postorderTraversal
 void BST::postorderTraversal() const {
 	if (root == nullptr) cerr << "There is no tree.";
