@@ -38,6 +38,7 @@ int main(int argc, const char * argv[]) {
         std::cout << "TEST: emptyGraph\n\n";
         Graph graph;
         graph.createGraph(course);
+		graph.emptyGraph();
         printGraph(graph);
     }
     
@@ -119,9 +120,40 @@ int main(int argc, const char * argv[]) {
 		printGraph(newGraph);
 		std::cout << "\nCopying graph 1 into new graph using overloaded assignment operator...\n";
 		newGraph = graph;
-
-
+	
+		printGraph(newGraph);
 	}
+
+	std::cout << "\n======================================\n";
+
+	{
+		std::cout << "TEST: move assignment operator\n\n";
+		Graph graph;
+		graph.createGraph(course);
+		std::cout << "Graph - ";
+		printGraph(graph);
+		std::cout << std::endl;
+
+		std::cout << "Creating new graph with new set of courses...\n";
+		std::vector<std::vector<int>> newCourses = {
+			{300},
+			{301, 300}
+		};
+		Graph newGraph;
+		newGraph.createGraph(newCourses);
+		std::cout << "New Graph - ";
+		printGraph(newGraph);
+		std::cout << "\nCopying graph 1 into new graph using move assignment operator...\n";
+		newGraph = std::move(graph);
+		std::cout << "Check graph 1 (should be empty)...\n";
+		std::cout << "Graph - ";
+		printGraph(graph);
+		std::cout << "Checking new graph...\n";
+		printGraph(newGraph);
+	}
+	std::cout << "\n======================================\n";
+
+	std::cout << std::endl;
 
 	system("pause");
     
